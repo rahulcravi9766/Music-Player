@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:id="@+id/lay_heading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border"
+        android:padding="2dp">
+
+
+        <TextView
+            android:id="@+id/sheet_heading"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Sleep Timer"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:padding="8dp"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/lay_one"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_timer"
+            android:layout_margin="8dp"
+            app:tint="@color/violet"
+            />
+        <TextView
+            android:id="@+id/five_min"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="15 Minutes"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:padding="8dp"/>
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/lay_two"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_timer"
+            android:layout_margin="8dp"
+            app:tint="@color/violet"
+            />
+        <TextView
+            android:id="@+id/ten_min"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="30 Minutes"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:padding="8dp"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lay_three"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_timer"
+            android:layout_margin="8dp"
+            app:tint="@color/violet"
+            />
+        <TextView
+            android:id="@+id/thirty_min"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="60 Minutes"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:padding="8dp"/>
+
+    </LinearLayout>
+
+</LinearLayout>

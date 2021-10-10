@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+<FrameLayout
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/home_fragment_id"
+    tools:context=".fragments.HomeFragment">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/home_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+
+        </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp">
+
+
+    </RelativeLayout>
+
+    <com.trendyol.bubblescrollbarlib.BubbleScrollBar
+        android:id="@+id/bubbleScrollingBar"
+        android:layout_gravity="end"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:bubbleBackground="@drawable/my_scroll"
+        app:scrollbarBackground="@color/transparent"
+        app:bubbleTextSize="6sp"
+        app:bubbleMargin="4dp"
+        app:bubbleElevation="6dp"
+        app:bubbleHeight="30dp"
+        app:bubbleMinWidth="50dp"
+        app:bubbleTextColor="@color/default_bubble_text_color"
+        app:bubblePadding="4dp"
+        app:thumbBackground="@color/violet"
+     />
+
+
+
+</FrameLayout>
+</layout>

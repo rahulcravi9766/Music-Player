@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/home_to_player"
+    app:startDestination="@id/tabFragment">
+
+    <fragment
+        android:id="@+id/musicPlayerFragment"
+        android:name="com.example.tabbuttons.fragments.MusicPlayerFragment"
+        android:label=""
+        tools:layout="@layout/fragment_music_player" >
+        <action
+            android:id="@+id/action_musicPlayerFragment_to_tabFragment"
+            app:destination="@id/tabFragment" />
+
+        <argument
+            android:name="selectedSongPosition"
+            app:argType="integer" />
+        <argument
+            android:name="selectedSongId"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/tabFragment"
+        android:name="com.example.tabbuttons.fragments.TabFragment"
+        android:label="Musicpod"
+
+        tools:layout="@layout/fragment_tab" >
+        <action
+            android:id="@+id/action_tabFragment_to_musicPlayerFragment"
+            app:destination="@id/musicPlayerFragment" />
+        <action
+            android:id="@+id/action_tabFragment_to_favFragment"
+            app:destination="@id/favFragment" />
+        <action
+            android:id="@+id/action_tabFragment_to_songsInPlaylistFragment"
+            app:destination="@id/songsInPlaylistFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/favFragment"
+        android:name="com.example.tabbuttons.fragments.FavFragment"
+        android:label="Favorites"
+        tools:layout="@layout/fragment_fav" >
+        <action
+            android:id="@+id/action_favFragment_to_musicPlayerFragment"
+            app:destination="@id/musicPlayerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/songsInPlaylistFragment"
+        android:name="com.example.tabbuttons.fragments.SongsInPlaylistFragment"
+        android:label="Playlist" >
+        <action
+            android:id="@+id/action_songsInPlaylistFragment_to_musicPlayerFragment"
+            app:destination="@id/musicPlayerFragment" />
+    </fragment>
+</navigation>
