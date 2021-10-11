@@ -6,7 +6,6 @@ import android.content.Intent
 import android.content.ServiceConnection
 import android.media.MediaPlayer
 import android.os.*
-import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import android.widget.*
@@ -22,6 +21,7 @@ import com.example.tabbuttons.service.PlayMusicService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import kotlin.Exception
 
 class MusicPlayerFragment : Fragment(), ServiceConnection, MediaPlayer.OnCompletionListener {
@@ -44,15 +44,15 @@ class MusicPlayerFragment : Fragment(), ServiceConnection, MediaPlayer.OnComplet
 
         if (musicService!!.mediaPlayer != null && musicService!!.currentSongId == args.selectedSongId) {
             musicService!!.songPosition = args.selectedSongPosition
-            if (musicService!!.mediaPlayer!!.isPlaying) musicService!!.showNotification(
+            if (musicService!!.mediaPlayer!!.isPlaying ) musicService!!.showNotification(
                 R.drawable.ic_pause_bottom,
-                0F
+                1F
             )
-            else musicService!!.showNotification(R.drawable.ic_baseline_play_arrow_24, 1F)
+            else musicService!!.showNotification(R.drawable.ic_baseline_play_arrow_24, 0F)
             addingAndRemovingFavSong()
             checkPlayPauseButton()
             musicBinding.endTime.text =
-                toMinutes(musicService!!.mediaPlayer!!.duration.toLong())     //musicService!!.songPosition = position of the song in the music player .If we change the song from the music player the position that we passed through the navigation of song list adapter will be different. ex: Song position in the music player is 2 and the adapter is 1. So if we go back from player and click the same song it should not start from the first, it should resume.
+                toMinutes(musicService!!.mediaPlayer!!.duration.toLong())   //musicService!!.songPosition = position of the song in the music player .If we change the song from the music player the position that we passed through the navigation of song list adapter will be different. ex: Song position in the music player is 2 and the adapter is 1. So if we go back from player and click the same song it should not start from the first, it should resume.
             musicService!!.seekBarMovement(this)
             musicService!!.setLayout()
             musicBinding.seekBar.max = musicService!!.mediaPlayer!!.duration
@@ -72,13 +72,11 @@ class MusicPlayerFragment : Fragment(), ServiceConnection, MediaPlayer.OnComplet
         //previous and next button
         musicBinding.previousButton.setOnClickListener {
             musicService!!.nextPreviousButtons(increment = false)
-            //  favNextPrevButton()
             addingAndRemovingFavSong()
         }
 
         musicBinding.nextButton.setOnClickListener {
             musicService!!.nextPreviousButtons(increment = true)
-            // favNextPrevButton()
             addingAndRemovingFavSong()
         }
 
@@ -88,8 +86,7 @@ class MusicPlayerFragment : Fragment(), ServiceConnection, MediaPlayer.OnComplet
         }
 
         musicBinding.shuffleButton.setOnClickListener {
-
-            musicService!!.listOfSongs = musicService!!.listOfSongs.shuffled()
+          musicService!!.listOfSongs.shuffled()
             Toast.makeText(context, "Shuffled", Toast.LENGTH_SHORT).show()
         }
 
@@ -97,7 +94,9 @@ class MusicPlayerFragment : Fragment(), ServiceConnection, MediaPlayer.OnComplet
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 if (fromUser) {
                     musicService!!.mediaPlayer!!.seekTo(progress)
-                    musicService!!.showNotification(R.drawable.ic_pause_bottom, 1F)
+                    if(musicService!!.mediaPlayer!!.isPlaying) musicService!!.showNotification(R.drawable.ic_pause_bottom, 1F)
+                    else musicService!!.showNotification(R.drawable.ic_baseline_play_arrow_24, 0F)
+
                 }
             }
 
@@ -111,9 +110,9 @@ class MusicPlayerFragment : Fragment(), ServiceConnection, MediaPlayer.OnComplet
 
     private fun checkPlayPauseButton() {
         if (musicService!!.mediaPlayer!!.isPlaying) {
-            musicBinding.playPauseButton.setImageResource(R.drawable.ic_baseline_pause_circle_outline_24)
+            musicBinding.playPauseButton.setImageResource(R.drawable.ic_baseline_pause_circle_filled_24)
         } else {
-            musicBinding.playPauseButton.setImageResource(R.drawable.ic_baseline_play_circle_outline_24)
+            musicBinding.playPauseButton.setImageResource(R.drawable.ic_baseline_play_circle_filled_24)
         }
     }
 
@@ -133,7 +132,7 @@ class MusicPlayerFragment : Fragment(), ServiceConnection, MediaPlayer.OnComplet
             musicService!!.currentSongId =
                 musicService!!.listOfSongs[musicService!!.songPosition].songId
 
-            musicBinding.playPauseButton.setImageResource(R.drawable.ic_baseline_pause_circle_outline_24)
+            musicBinding.playPauseButton.setImageResource(R.drawable.ic_baseline_pause_circle_filled_24)
             musicBinding.starTime.text =
                 toMinutes(musicService!!.mediaPlayer!!.currentPosition.toLong())
             musicBinding.endTime.text = toMinutes(musicService!!.mediaPlayer!!.duration.toLong())
@@ -151,8 +150,11 @@ class MusicPlayerFragment : Fragment(), ServiceConnection, MediaPlayer.OnComplet
         System.currentTimeMillis()
         CoroutineScope(Dispatchers.IO).launch {
             songDao.addSong(musicService!!.listOfSongs[musicService!!.songPosition])
-            musicService!!.favSongs = emptyList()
-            musicService!!.readFavSongs("favorite")
+            withContext(Dispatchers.Main){
+                musicService!!.favSongs = emptyList()
+                musicService!!.readFavSongs("favorite")
+            }
+
         }
     }
 

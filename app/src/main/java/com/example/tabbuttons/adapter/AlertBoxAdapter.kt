@@ -7,13 +7,11 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tabbuttons.R
-import com.example.tabbuttons.model.SongModel
 import com.example.tabbuttons.model.playlistList
 
-class AlertBoxAdapter( writePlaylistName: EditText, SongModel: List<SongModel>) : RecyclerView.Adapter<AlertBoxAdapter.AlertBoxViewHolder>() {
+class AlertBoxAdapter( writePlaylistName: EditText) : RecyclerView.Adapter<AlertBoxAdapter.AlertBoxViewHolder>() {
 
     var editTextName = writePlaylistName
-    var listOfSongs = SongModel
 
     inner class AlertBoxViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val songNameInAlert: TextView = itemView.findViewById(R.id.alertBox_playList_name)

@@ -6,13 +6,11 @@ import android.content.Intent
 import android.content.ServiceConnection
 import android.os.Bundle
 import android.os.IBinder
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Adapter
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
@@ -27,10 +25,7 @@ import com.example.tabbuttons.databinding.FragmentSongsInPlaylistBinding
 import com.example.tabbuttons.model.SongModel
 import com.example.tabbuttons.model.musicService
 import com.example.tabbuttons.service.PlayMusicService
-import com.trendyol.bubblescrollbarlib.BubbleTextProvider
-import kotlinx.android.synthetic.main.fragment_songs_in_playlist.view.*
-import kotlinx.coroutines.*
-import java.lang.StringBuilder
+
 
 class SongsInPlaylistFragment : Fragment(), ServiceConnection {
 
@@ -43,7 +38,7 @@ class SongsInPlaylistFragment : Fragment(), ServiceConnection {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         val intent = Intent(activity, PlayMusicService::class.java)
         activity?.bindService(intent, this, Context.BIND_AUTO_CREATE)
@@ -85,7 +80,7 @@ class SongsInPlaylistFragment : Fragment(), ServiceConnection {
             songsInPlaylistAdapter =
                 activity?.let {
                     SongListAdapter(
-                        musicService!!.songsInsidePlaylist as MutableList<SongModel>,onClicked,songsInPlaylistBinding.root, 3,
+                        musicService!!.songsInsidePlaylist as MutableList<SongModel>,onClicked, 3,
                         it
                     )
                 }!!

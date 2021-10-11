@@ -23,22 +23,23 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
-                android:background="@drawable/border">
+                android:background="@drawable/petals">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/white">
-            <TextView
-                android:id="@+id/fav_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="50dp"
-                android:text="@string/favorites"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:textSize="20sp" />
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/fav_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginTop="50dp"
+                        android:fontFamily="@font/actionman"
+                        android:text="@string/favorites"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
 
 
                 </RelativeLayout>
@@ -61,7 +62,8 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="15dp"
-                android:text="Playlists"
+                android:text="@string/playlists"
+                android:fontFamily="@font/actionman"
                 android:textColor="@color/black"
                 android:textStyle="bold"
                 android:textSize="20sp" />

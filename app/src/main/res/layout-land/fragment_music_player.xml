@@ -24,7 +24,7 @@
                 android:layout_height="270dp"
                 android:layout_alignParentBottom="true"
                 android:layout_marginBottom="20dp"
-                android:src="@drawable/diskfig" />
+                android:src="@drawable/diskimg" />
 
         </RelativeLayout>
 
@@ -96,7 +96,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@color/transparent"
-                android:src="@drawable/ic_baseline_pause_circle_outline_24" />
+                android:src="@drawable/ic_baseline_pause_circle_filled_24" />
 
             <ImageButton
                 android:id="@+id/nextButton"
@@ -133,6 +133,7 @@
                 android:scrollHorizontally="true"
                 android:singleLine="true"
                 android:text="@string/textviewofsongsname"
+                android:fontFamily="@font/actionman"
                 android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="18sp" />

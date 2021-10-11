@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
-        android:backgroundTint="@color/violet"
+        android:backgroundTint="@color/white"
         android:src="@drawable/ic_baseline_timer_24"
         android:clickable="true"
         android:focusable="true"

@@ -23,5 +23,6 @@
     <string name="name">name</string>
     <string name="duration">Duration</string>
     <string name="playlistname">playlistName</string>
+    <string name="playlists">Playlists</string>
 
 </resources>

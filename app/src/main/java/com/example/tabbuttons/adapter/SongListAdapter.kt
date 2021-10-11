@@ -26,7 +26,6 @@ import kotlinx.coroutines.*
 class SongListAdapter(
     SongModel: MutableList<SongModel>,
     val onClicked : (SongModel,Int)->Unit,
-    views: View,
     var navigationNumber:Int,
     fragmentContext: FragmentActivity
 ) :
@@ -35,9 +34,8 @@ class SongListAdapter(
 
     //we are navigating from home which is inside tab fragment. so we use Navigation. and pass views
     var listOfSongs = SongModel
-   // var navigationNumber = navNum
     var context = fragmentContext
-    lateinit var  optionButton : ImageButton
+
 
     lateinit var alertAdapter: AlertBoxAdapter
     private lateinit var songDao: SongDao
@@ -154,7 +152,7 @@ class SongListAdapter(
         musicService!!.readPlaylistNamesFromDatabase(context)
 
         alertView.alertRecyclerViewForPlaylist.apply {
-            alertAdapter = AlertBoxAdapter( alertView.write_playlist_name, listOfSongs)
+            alertAdapter = AlertBoxAdapter( alertView.write_playlist_name)
             adapter = alertAdapter
             layoutManager = GridLayoutManager(context, 2)
         }
@@ -220,7 +218,7 @@ class SongListAdapter(
 
             holder.songName.text = listOfSongs[selectedSongPosition].songName
             holder.songDuration.text =
-                toMinutes(listOfSongs[selectedSongPosition].songDuration.toLong())
+                toMinutes(listOfSongs[selectedSongPosition].songDuration)
             Glide.with(context).load(listOfSongs[selectedSongPosition].songPhoto).apply(
                 RequestOptions().placeholder(R.drawable.songimg).centerCrop()
             ).into(holder.songPhoto)

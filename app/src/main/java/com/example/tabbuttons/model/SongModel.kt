@@ -20,6 +20,7 @@ data class SongModel(
     val songPhoto: String
 ) : Parcelable
 
+
  var musicService: PlayMusicService? = null
  var playlistList= mutableListOf<String>()
 

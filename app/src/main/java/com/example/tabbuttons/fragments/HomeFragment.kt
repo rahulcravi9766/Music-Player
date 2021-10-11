@@ -21,10 +21,7 @@ import com.example.tabbuttons.adapter.SongListAdapter
 import com.example.tabbuttons.databinding.FragmentHomeBinding
 import com.example.tabbuttons.model.musicService
 import com.example.tabbuttons.service.PlayMusicService
-import com.trendyol.bubblescrollbarlib.BubbleScrollBar
 import com.trendyol.bubblescrollbarlib.BubbleTextProvider
-import kotlinx.android.synthetic.main.fragment_home.*
-import java.util.*
 import android.provider.Settings
 import android.view.*
 import androidx.activity.result.contract.ActivityResultContracts
@@ -36,7 +33,7 @@ class HomeFragment(private val mainView: View) : Fragment(), ServiceConnection {
 
     var listOfSongs = mutableListOf<SongModel>()
 
-    lateinit var homeRecyclerView: RecyclerView
+    private lateinit var homeRecyclerView: RecyclerView
     lateinit var homeAdapter: SongListAdapter
     lateinit var homeBinding: FragmentHomeBinding
     private lateinit var navController: NavController
@@ -58,12 +55,12 @@ class HomeFragment(private val mainView: View) : Fragment(), ServiceConnection {
             )
         )
 
-        //      //bubble sorting
-//        homeBinding.bubbleScrollingBar.attachToRecyclerView(homeRecyclerView)
-//        homeBinding.bubbleScrollingBar.bubbleTextProvider = BubbleTextProvider {
-//                position ->
-//            StringBuilder(listOfSongs[position].songName.substring(0,1)).toString()
-//        }
+             //bubble sorting
+        homeBinding.bubbleScrollBar.attachToRecyclerView(homeRecyclerView)
+        homeBinding.bubbleScrollBar.bubbleTextProvider = BubbleTextProvider {
+                position ->
+            StringBuilder(listOfSongs[position].songName.substring(0,1)).toString()
+        }
 
         return homeBinding.root
     }
@@ -125,7 +122,7 @@ class HomeFragment(private val mainView: View) : Fragment(), ServiceConnection {
         }
         AlertDialog.Builder(requireActivity())
             .setMessage(message)
-            .setPositiveButton("Ok", DialogInterface.OnClickListener { dialog, _ ->
+            .setPositiveButton("Ok") { dialog, _ ->
                 if (perValue != 2) {
                     val intent = Intent()
                     intent.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
@@ -135,7 +132,7 @@ class HomeFragment(private val mainView: View) : Fragment(), ServiceConnection {
                 } else {
                     dialog.dismiss()
                 }
-            })
+            }
             .create()
             .show()
     }
@@ -184,7 +181,7 @@ class HomeFragment(private val mainView: View) : Fragment(), ServiceConnection {
         }
         homeRecyclerView.apply {
             homeAdapter =
-                activity?.let { SongListAdapter(listOfSongs, onClicked, mainView, 1, it) }!!
+                activity?.let { SongListAdapter(listOfSongs, onClicked,  1, it) }!!
             adapter = homeAdapter
             layoutManager = LinearLayoutManager(activity)
             // homeBinding.fastscroll.setRecyclerView(homeRecyclerView)
@@ -224,7 +221,7 @@ class HomeFragment(private val mainView: View) : Fragment(), ServiceConnection {
             musicService!!.listOfSongs = ascendingSongs
             homeRecyclerView.apply {
                 homeAdapter =
-                    activity?.let { SongListAdapter(ascendingSongs, onClicked, mainView, 1, it) }!!
+                    activity?.let { SongListAdapter(ascendingSongs, onClicked,  1, it) }!!
                 adapter = homeAdapter
                 layoutManager = LinearLayoutManager(activity)
 
@@ -238,7 +235,7 @@ class HomeFragment(private val mainView: View) : Fragment(), ServiceConnection {
             musicService!!.listOfSongs = descendingSongs
             homeRecyclerView.apply {
                 homeAdapter =
-                    activity?.let { SongListAdapter(descendingSongs, onClicked, mainView, 1, it) }!!
+                    activity?.let { SongListAdapter(descendingSongs, onClicked,  1, it) }!!
                 adapter = homeAdapter
                 layoutManager = LinearLayoutManager(activity)
             }

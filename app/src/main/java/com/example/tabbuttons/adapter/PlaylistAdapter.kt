@@ -52,7 +52,8 @@ class PlaylistAdapter(
        GlobalScope.launch (Dispatchers.IO){
            musicService!!.deleteAllSongsOfPlaylist(adapterPosition)
            withContext(Dispatchers.Main){
-               this@PlaylistAdapter.notifyItemRemoved(adapterPosition)
+
+               this@PlaylistAdapter.notifyDataSetChanged()
            }
        }
     }

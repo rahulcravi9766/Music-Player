@@ -32,7 +32,7 @@ class FavFragment : Fragment(), ServiceConnection {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         setHasOptionsMenu(true)
         val intent = Intent(activity, PlayMusicService::class.java)
@@ -75,7 +75,7 @@ class FavFragment : Fragment(), ServiceConnection {
             adapterMusic =
                 activity?.let {
                     SongListAdapter(
-                        musicService!!.favSongs as MutableList<SongModel>,onClicked, favListBinding.root, 2,
+                        musicService!!.favSongs as MutableList<SongModel>,onClicked,  2,
                         it
                     )
                 }!!

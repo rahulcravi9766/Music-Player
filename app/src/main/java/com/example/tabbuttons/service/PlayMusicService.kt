@@ -9,8 +9,6 @@ import android.os.*
 import android.support.v4.media.MediaMetadataCompat
 import android.support.v4.media.session.MediaSessionCompat
 import android.support.v4.media.session.PlaybackStateCompat
-import android.util.Log
-
 import androidx.navigation.NavDeepLinkBuilder
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -21,7 +19,6 @@ import com.example.tabbuttons.fragments.MusicPlayerFragment
 import com.example.tabbuttons.model.*
 import java.lang.Exception
 import android.view.View
-
 import androidx.fragment.app.FragmentActivity
 import androidx.media.app.NotificationCompat
 import androidx.navigation.Navigation
@@ -31,17 +28,18 @@ import com.example.tabbuttons.dataBase.SongDatabase
 import com.example.tabbuttons.fragments.TabFragmentDirections
 import kotlinx.coroutines.*
 import java.lang.Runnable
+import java.lang.ref.WeakReference
 import java.util.*
-import kotlin.collections.ArrayList
+
 
 class PlayMusicService : Service() {
 
     private lateinit var runnable: Runnable
     private lateinit var mediaSession: MediaSessionCompat
     private var myBinder = MyBinder()
-    lateinit var musicFragment: MusicPlayerFragment
-    lateinit var mainActivity: MainActivity
-    lateinit var tabFragment: TabFragment
+    lateinit var musicFragment: WeakReference<MusicPlayerFragment>
+    lateinit var mainActivity: WeakReference<MainActivity>
+    lateinit var tabFragment: WeakReference<TabFragment>
     lateinit var listOfSongs: List<SongModel>
     lateinit var allSongs: List<SongModel>
     lateinit var favSongs: List<SongModel>
@@ -57,7 +55,7 @@ class PlayMusicService : Service() {
     var mediaPlayer: MediaPlayer? = null
 
 
-    override fun onBind(p0: Intent?): IBinder? {
+    override fun onBind(p0: Intent?): IBinder {
         mediaSession = MediaSessionCompat(baseContext, "My Music")
         return myBinder
     }
@@ -83,10 +81,10 @@ class PlayMusicService : Service() {
                 listOfSongs = emptyList()
                 listOfSongs = insidePlaylistList
             }
-            4 -> {
-                listOfSongs = listOfSongs.shuffled()
-
-            }
+//            4 -> {
+//                listOfSongs = listOfSongs.shuffled()
+//
+//            }
         }
     }
 
@@ -134,16 +132,24 @@ class PlayMusicService : Service() {
     }
 
     fun tabCalling(activity: TabFragment) {
-        this.tabFragment = activity
+        val weakTabFragment=WeakReference(activity)
+        this.tabFragment = weakTabFragment
     }
 
     fun seekBarMovement(activity: MusicPlayerFragment) {
-        this.musicFragment = activity
+        val weakMusicPlayerFragment = WeakReference(activity)
+        this.musicFragment = weakMusicPlayerFragment
         runnable = Runnable {
-            musicFragment.musicBinding.starTime.text =
-                toMinutes(musicService!!.mediaPlayer!!.currentPosition.toLong())
-            musicFragment.musicBinding.seekBar.progress =
-                musicService!!.mediaPlayer!!.currentPosition
+            musicFragment.get().let { it?.musicBinding?.starTime?.text =
+                musicService!!.mediaPlayer!!.currentPosition.toLong() .let { it1 ->
+                    toMinutes(
+                        it1
+                    )
+                }
+            }
+
+            musicFragment.get().let { it?.musicBinding?.seekBar?.progress =
+                musicService!!.mediaPlayer!!.currentPosition }
             Handler(Looper.getMainLooper()).postDelayed(runnable, 200)
         }
         Handler(Looper.getMainLooper()).postDelayed(runnable, 200)
@@ -202,7 +208,7 @@ class PlayMusicService : Service() {
         val image = if (imgArt != null) {
             BitmapFactory.decodeByteArray(imgArt, 0, imgArt.size)
         } else {
-            BitmapFactory.decodeResource(resources, R.drawable.diskfig)
+            BitmapFactory.decodeResource(resources, R.drawable.diskimg)
         }
 
         val notification =
@@ -226,37 +232,46 @@ class PlayMusicService : Service() {
                 .build()
 
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+//            //setting duration in seekBar
+//            mediaSession.setMetadata(
+//                mediaPlayer.get().let { it?.duration?.toLong() }?.let {
+//                    MediaMetadataCompat.Builder()
+//                        .putLong(
+//                            MediaMetadataCompat.METADATA_KEY_DURATION,
+//                            it
+//                        )
+//                        .build()
+//                }
+//            )
+//            mediaSession.setPlaybackState(
+//                PlaybackStateCompat.Builder().setState(
+//                    PlaybackStateCompat.STATE_PLAYING,
+//                    mediaPlayer.get().let { it?.currentPosition?.toLong() }!!,
+//                    playbackSpeed
+//                )
+//                    .setActions(PlaybackStateCompat.ACTION_SEEK_TO)
+//                    .build()
+//            )
+//        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q){
             //setting duration in seekBar
-            mediaSession.setMetadata(
-                MediaMetadataCompat.Builder()
-                    .putLong(
-                        MediaMetadataCompat.METADATA_KEY_DURATION,
-                        mediaPlayer!!.duration.toLong()
-                    )
-                    .build()
-            )
-            mediaSession.setPlaybackState(
-                PlaybackStateCompat.Builder().setState(
-                    PlaybackStateCompat.STATE_PLAYING,
-                    mediaPlayer!!.currentPosition.toLong(),
-                    playbackSpeed
-                )
-                    .setActions(PlaybackStateCompat.ACTION_SEEK_TO)
-                    .build()
-            )
+            mediaSession.setMetadata(MediaMetadataCompat.Builder()
+                .putLong(MediaMetadataCompat.METADATA_KEY_DURATION, mediaPlayer!!.duration.toLong())
+                .build())
+            mediaSession.setPlaybackState(PlaybackStateCompat.Builder().setState(PlaybackStateCompat.STATE_PLAYING,mediaPlayer!!.currentPosition.toLong(),playbackSpeed)
+                .setActions(PlaybackStateCompat.ACTION_SEEK_TO)
+                .build())
         }
 
-        mediaSession.setCallback(object : MediaSessionCompat.Callback() {
+        mediaSession.setCallback(object: MediaSessionCompat.Callback(){
             override fun onSeekTo(pos: Long) {
                 super.onSeekTo(pos)
                 mediaPlayer!!.seekTo(pos.toInt())
+
                 val playBackStateNew = PlaybackStateCompat.Builder()
-                    .setState(
-                        PlaybackStateCompat.STATE_PLAYING,
-                        mediaPlayer!!.currentPosition.toLong(),
-                        playbackSpeed
-                    )
+                    .setState(PlaybackStateCompat.STATE_PLAYING, mediaPlayer!!.currentPosition.toLong(), playbackSpeed)
                     .setActions(PlaybackStateCompat.ACTION_SEEK_TO)
                     .build()
                 mediaSession.setPlaybackState(playBackStateNew)
@@ -275,14 +290,15 @@ class PlayMusicService : Service() {
             mediaPlayer!!.reset()
             mediaPlayer!!.setDataSource(listOfSongs[songPosition].songPath)
             mediaPlayer!!.prepare()
-            musicFragment.musicBinding.playPauseButton.setImageResource(R.drawable.ic_baseline_pause_circle_outline_24)
-            //   musicService!!.showNotification(R.drawable.ic_pause_notification,0F)
-            musicFragment.musicBinding.starTime.text =
-                toMinutes(musicService!!.mediaPlayer!!.currentPosition.toLong())
-            musicFragment.musicBinding.endTime.text =
-                toMinutes(musicService!!.mediaPlayer!!.duration.toLong())
-            musicFragment.musicBinding.seekBar.progress = 0
-            musicFragment.musicBinding.seekBar.max = musicService!!.mediaPlayer!!.duration
+            musicFragment.get().let { it?.musicBinding?.playPauseButton?.setImageResource(R.drawable.ic_baseline_pause_circle_filled_24) }
+              // musicService!!.showNotification(R.drawable.ic_pause_notification,1F)
+            musicFragment.get().let { it?.musicBinding?.starTime?.text =
+                toMinutes(musicService!!.mediaPlayer!!.currentPosition.toLong())}
+
+            musicFragment.get().let { it?.musicBinding?.endTime?.text =
+                toMinutes(musicService!!.mediaPlayer!!.duration.toLong()) }
+            musicFragment.get().let { it?.musicBinding?.seekBar?.progress = 0 }
+            musicFragment.get().let { it?.musicBinding?.seekBar?.max = musicService!!.mediaPlayer!!.duration }
 
         } catch (e: Exception) {
             return
@@ -291,9 +307,11 @@ class PlayMusicService : Service() {
 
     //ok
     fun playMusic() {
-        musicFragment.musicBinding.playPauseButton.setImageResource(R.drawable.ic_baseline_pause_circle_outline_24)
+        musicFragment.get().let { it?.musicBinding?.playPauseButton?.setImageResource(R.drawable.ic_baseline_pause_circle_filled_24) }
         musicService!!.showNotification(R.drawable.ic_pause_notification, 1F)
-        tabFragment.tabBinding.playPauseButtonBottom.setImageResource(R.drawable.ic_pause_bottom)
+        tabFragment.get().let {
+            it?.tabBinding?.playPauseButtonBottom?.setImageResource(R.drawable.ic_pause_bottom)
+        }
         musicService!!.mediaPlayer!!.start()
         currentSongId = musicService!!.listOfSongs[songPosition].songId
     }
@@ -301,14 +319,16 @@ class PlayMusicService : Service() {
 
     //ok
     fun pauseMusic() {
-        musicFragment.musicBinding.playPauseButton.setImageResource(R.drawable.ic_baseline_play_circle_outline_24)
+        musicFragment.get().let { it?.musicBinding?.playPauseButton?.setImageResource(R.drawable.ic_baseline_play_circle_filled_24) }
         musicService!!.showNotification(R.drawable.ic_baseline_play_arrow_24, 0F)
-        tabFragment.tabBinding.playPauseButtonBottom.setImageResource(R.drawable.ic_play_bottom)
+        tabFragment.get().let {
+            it?.tabBinding?.playPauseButtonBottom?.setImageResource(R.drawable.ic_play_bottom)
+        }
         musicService!!.mediaPlayer!!.pause()
     }
 
     fun nextPreviousButtons(increment: Boolean) {
-        musicFragment.musicBinding.playPauseButton.setImageResource(R.drawable.ic_baseline_pause_circle_outline_24)
+        musicFragment.get().let { it?.musicBinding?.playPauseButton?.setImageResource(R.drawable.ic_baseline_pause_circle_filled_24) }
         if (increment) {
             musicService!!.setSongPosition(increment = true)
             createMediaPlayer()
@@ -325,16 +345,20 @@ class PlayMusicService : Service() {
     fun setLayout() {
 
         val songName = musicService!!.listOfSongs[musicService!!.songPosition].songName
-        musicFragment.musicBinding.songNameId.isSelected = true
-        musicFragment.musicBinding.songNameId.text = songName
+        musicFragment.get().let { it?.musicBinding?.songNameId?.isSelected = true }
+        musicFragment.get().let { it?.musicBinding?.songNameId?.text = songName }
 
         //adding song photo to music player
-        musicFragment.let {
-            Glide.with(it).load(musicService!!.listOfSongs[musicService!!.songPosition].songPhoto)
-                .apply(
-                    RequestOptions().placeholder(R.drawable.diskfig).centerCrop()
-                )
-                .into(musicFragment.musicBinding.imageView)
+        musicFragment.get().let {
+            if (it != null) {
+                musicFragment.get().let { it?.musicBinding?.imageView }?.let { it1 ->
+                    Glide.with(it).load(musicService!!.listOfSongs[musicService!!.songPosition].songPhoto)
+                        .apply(
+                            RequestOptions().placeholder(R.drawable.diskimg).centerCrop()
+                        )
+                        .into(it1)
+                }
+            }
         }
     }
 

@@ -4,7 +4,6 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
-import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.IBinder
@@ -14,6 +13,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.tabbuttons.R
 import com.example.tabbuttons.model.musicService
 import com.example.tabbuttons.service.PlayMusicService
+import java.lang.ref.WeakReference
 
 
 class MainActivity : AppCompatActivity(), ServiceConnection
@@ -35,6 +35,7 @@ class MainActivity : AppCompatActivity(), ServiceConnection
 
         val navController = host.navController
 
+
         appBarConfiguration = AppBarConfiguration(
             setOf(R.id.tabFragment)
         ) //  IDs of fragments you want without the ActionBar home/up button
@@ -42,14 +43,15 @@ class MainActivity : AppCompatActivity(), ServiceConnection
         setupActionBarWithNavController(navController, appBarConfiguration)
 
 
-        supportActionBar!!.setBackgroundDrawable(
-            ColorDrawable(resources.getColor(R.color.black)))
+//        supportActionBar!!.setBackgroundDrawable(
+//            ColorDrawable(resources.getColor(R.color.black)))
         }
 
     override fun onServiceConnected(p0: ComponentName?, service: IBinder?) {
         val binder = service as PlayMusicService.MyBinder
         musicService = binder.currentService()
-        musicService!!.mainActivity = this
+        val weakReferenceMainActivity = WeakReference(this)
+        musicService!!.mainActivity = weakReferenceMainActivity
     }
 
     override fun onServiceDisconnected(p0: ComponentName?) {

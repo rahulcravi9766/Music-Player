@@ -33,7 +33,7 @@ class NotificationReceiver : BroadcastReceiver() {
                  pauseMusic()
              }
              state.equals(TelephonyManager.EXTRA_STATE_OFFHOOK) -> {
-                 pauseMusic()
+                pauseMusic()
              }
              state.equals(TelephonyManager.EXTRA_STATE_IDLE) -> {
                  playMusic()
@@ -46,8 +46,8 @@ class NotificationReceiver : BroadcastReceiver() {
     //ok
     private fun playMusic(){
         musicService!!.mediaPlayer!!.isPlaying
-        musicService!!.musicFragment.musicBinding.playPauseButton.setImageResource(R.drawable.ic_baseline_pause_circle_outline_24)
-        musicService!!.tabFragment.tabBinding.playPauseButtonBottom.setImageResource(R.drawable.ic_pause_bottom)
+        musicService!!.musicFragment.get().let { it?.musicBinding?.playPauseButton?.setImageResource(R.drawable.ic_baseline_pause_circle_filled_24) }
+        musicService!!.tabFragment.get().let { it?.tabBinding?.playPauseButtonBottom?.setImageResource(R.drawable.ic_pause_bottom) }
         musicService!!.mediaPlayer!!.start()
         musicService!!.showNotification(R.drawable.ic_pause_notification,1F)
     }
@@ -55,8 +55,8 @@ class NotificationReceiver : BroadcastReceiver() {
     //0k
     private fun pauseMusic(){
         !musicService!!.mediaPlayer!!.isPlaying
-        musicService!!.musicFragment.musicBinding.playPauseButton.setImageResource(R.drawable.ic_baseline_play_circle_outline_24)
-        musicService!!.tabFragment.tabBinding.playPauseButtonBottom.setImageResource(R.drawable.ic_play_bottom)
+        musicService!!.musicFragment.get().let { it?.musicBinding?.playPauseButton?.setImageResource(R.drawable.ic_baseline_play_circle_filled_24) }
+        musicService!!.tabFragment.get().let { it?.tabBinding?.playPauseButtonBottom?.setImageResource(R.drawable.ic_play_bottom)}
         musicService!!.mediaPlayer!!.pause()
         musicService!!.showNotification(R.drawable.ic_baseline_play_arrow_24,0F)
     }
@@ -65,15 +65,17 @@ class NotificationReceiver : BroadcastReceiver() {
     private fun nextPreviousButtonsMusic(increment: Boolean,context: Context){
     musicService!!.setSongPosition(increment = increment)
         musicService!!.createMediaPlayer()
-        Glide.with(context).load(musicService!!.listOfSongs[musicService!!.songPosition].songPhoto)
-            .apply(RequestOptions().placeholder(R.drawable.ic_baseline_music_video_24).centerCrop())
-            .into(musicService!!.musicFragment.musicBinding.imageView)
+        musicService!!.musicFragment.get().let { it?.musicBinding?.imageView }?.let {
+            Glide.with(context).load(musicService!!.listOfSongs[musicService!!.songPosition].songPhoto)
+                .apply(RequestOptions().placeholder(R.drawable.diskimg).centerCrop())
+                .into(it)
+        }
 
         //adding song name to player
         val songName = musicService!!.listOfSongs[musicService!!.songPosition].songName
-        musicService!!.musicFragment.musicBinding.songNameId.text = songName
-        musicService!!.musicFragment.musicBinding.songNameId.isSelected=true
-        musicService!!.tabFragment.tabBinding.songNameBottom.text = songName
+        musicService!!.musicFragment.get().let { it?.musicBinding?.songNameId?.text = songName }
+        musicService!!.musicFragment.get().let { it?.musicBinding?.songNameId?.isSelected=true }
+        musicService!!.tabFragment.get().let { it?.tabBinding?.songNameBottom?.text = songName}
         playMusic()
     }
 }

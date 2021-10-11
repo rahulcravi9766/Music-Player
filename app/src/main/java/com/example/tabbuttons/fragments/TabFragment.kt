@@ -8,7 +8,6 @@ import android.content.ServiceConnection
 import android.graphics.Color
 import android.os.Bundle
 import android.os.IBinder
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -26,8 +25,6 @@ import com.example.tabbuttons.service.PlayMusicService
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.tabs.TabLayoutMediator
-import kotlin.system.exitProcess
-
 
 class TabFragment : Fragment(), ServiceConnection {
 
@@ -42,7 +39,7 @@ class TabFragment : Fragment(), ServiceConnection {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         val navController = findNavController()
         val intent = Intent(activity, PlayMusicService::class.java)
@@ -156,7 +153,7 @@ class TabFragment : Fragment(), ServiceConnection {
 
                 Thread.sleep(900000)
                 musicService!!.sleepButton = false
-                if (musicService!!.mediaPlayer != null && musicService!!.mainActivity.isDestroyed) {
+                if (musicService!!.mediaPlayer != null && musicService!!.mainActivity.get().let { it?.isDestroyed == true }) {
                     min15 = false
                     exitProcessForSleeperTime()
                 } else if (this.isVisible) {
@@ -183,7 +180,7 @@ class TabFragment : Fragment(), ServiceConnection {
 
                 Thread.sleep(1800000)
                 musicService!!.sleepButton = false
-                if (musicService!!.mediaPlayer != null && musicService!!.mainActivity.isDestroyed) {
+                if (musicService!!.mediaPlayer != null && musicService!!.mainActivity.get().let { it?.isDestroyed == true }) {
                     exitProcessForSleeperTime()
                 } else if (this.isVisible) {
 
@@ -215,7 +212,7 @@ class TabFragment : Fragment(), ServiceConnection {
 
                 Thread.sleep(3600000)
                 musicService!!.sleepButton = false
-                if (musicService!!.mediaPlayer != null && musicService!!.mainActivity.isDestroyed) {
+                if (musicService!!.mediaPlayer != null && musicService!!.mainActivity.get().let { it?.isDestroyed == true }) {
                     exitProcessForSleeperTime()
                 } else if (this.isVisible) {
 
@@ -266,14 +263,14 @@ class TabFragment : Fragment(), ServiceConnection {
 
     private fun changeSleepTimerColor() {
 
-        musicService!!.mainActivity.runOnUiThread {
+//        musicService!!.mainActivity.runOnUiThread {
             tabBinding.sleepTimerButton.setColorFilter(
                 ContextCompat.getColor(
                     requireContext(),
                     R.color.black
                 )
             )
-        }
+     //   }
     }
 
     override fun onServiceConnected(p0: ComponentName?, service: IBinder?) {
