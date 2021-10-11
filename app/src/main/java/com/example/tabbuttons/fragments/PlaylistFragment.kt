@@ -17,13 +17,11 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tabbuttons.R
 import com.example.tabbuttons.adapter.PlaylistAdapter
-import com.example.tabbuttons.adapter.SongListAdapter
 import com.example.tabbuttons.dataBase.SongDao
 import com.example.tabbuttons.dataBase.SongDatabase
 import com.example.tabbuttons.databinding.FragmentPlaylistBinding
 import com.example.tabbuttons.model.musicService
 import com.example.tabbuttons.model.playlistList
-import com.example.tabbuttons.model.songModel
 import com.example.tabbuttons.service.PlayMusicService
 import kotlinx.coroutines.*
 
@@ -40,8 +38,6 @@ class PlaylistFragment(
     private val views = view
     var navController = Navigation.findNavController(views)
 
-
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -55,16 +51,10 @@ class PlaylistFragment(
         playListBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_playlist, container, false)
         playlistRecyclerView = playListBinding.playlistRecyclerView
-       // playlistRecyclerView.isNestedScrollingEnabled = false
         playListBinding.favoriteCardView.setOnClickListener {
             val actions = TabFragmentDirections.actionTabFragmentToFavFragment()
             navController.navigate(actions)
         }
-
-//        playListBinding.favoriteCardView.setOnLongClickListener {
-//
-//        }
-
         return playListBinding.root
     }
 
@@ -74,13 +64,13 @@ class PlaylistFragment(
 
     }
 
+
     private fun readPlaylistNames(){
 
             GlobalScope.launch(Dispatchers.IO) {
                 musicService!!.readPlaylistNamesFromDatabase(requireActivity())
                 withContext(Dispatchers.Main){
                     playlistRecyclerView()
-
             }
         }
     }
@@ -89,10 +79,8 @@ class PlaylistFragment(
 
     private fun playlistRecyclerView() {
         playlistRecyclerView.apply {
-            playAdapter = activity?.let { PlaylistAdapter(playlistList,playListBinding.root,it) }!!
-
+            playAdapter = activity?.let { PlaylistAdapter(playlistList,it) }!!
             adapter = playAdapter
-            Log.i("recyclerPlay", "check playList")
             layoutManager = GridLayoutManager(activity,2)
         }
     }

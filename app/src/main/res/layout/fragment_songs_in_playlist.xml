@@ -16,22 +16,5 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-<!--    <com.trendyol.bubblescrollbarlib.BubbleScrollBar-->
-<!--        android:id="@+id/bubbleScrollBarInPlaylist"-->
-<!--        android:layout_gravity="end"-->
-<!--        android:orientation="vertical"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        app:bubbleBackground="@drawable/my_scroll"-->
-<!--        app:scrollbarBackground="@color/transparent"-->
-<!--        app:bubbleTextSize="6sp"-->
-<!--        app:bubbleMargin="4dp"-->
-<!--        app:bubbleElevation="6dp"-->
-<!--        app:bubbleHeight="30dp"-->
-<!--        app:bubbleMinWidth="50dp"-->
-<!--        app:bubbleTextColor="@color/default_bubble_text_color"-->
-<!--        app:bubblePadding="4dp"-->
-<!--        app:thumbBackground="@color/violet"-->
-<!--        />-->
 </FrameLayout>
 </layout>

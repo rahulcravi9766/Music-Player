@@ -2,15 +2,11 @@ package com.example.tabbuttons.adapter
 
 import android.app.AlertDialog
 import android.graphics.Color
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.core.content.ContextCompat
-import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentActivity
-import androidx.navigation.Navigation
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -19,22 +15,17 @@ import com.example.tabbuttons.R
 import com.example.tabbuttons.`interface`.CustomItemClickListener
 import com.example.tabbuttons.dataBase.SongDao
 import com.example.tabbuttons.dataBase.SongDatabase
-import com.example.tabbuttons.fragments.FavFragmentDirections
-import com.example.tabbuttons.fragments.SongsInPlaylistFragmentDirections
-import com.example.tabbuttons.fragments.TabFragment
-import com.example.tabbuttons.fragments.TabFragmentDirections
+import com.example.tabbuttons.model.SongModel
 import com.example.tabbuttons.model.musicService
 import com.example.tabbuttons.model.playlistList
-import com.example.tabbuttons.model.songModel
 import com.example.tabbuttons.model.toMinutes
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.trendyol.bubblescrollbarlib.BubbleScrollBar
 import kotlinx.android.synthetic.main.alert_box.view.*
 import kotlinx.coroutines.*
 
 class SongListAdapter(
-    SongModel: MutableList<songModel>,
-    val onClicked : (songModel,Int)->Unit,
+    SongModel: MutableList<SongModel>,
+    val onClicked : (SongModel,Int)->Unit,
     views: View,
     var navigationNumber:Int,
     fragmentContext: FragmentActivity
@@ -42,8 +33,6 @@ class SongListAdapter(
     RecyclerView.Adapter<SongListAdapter.SongListViewHolder>() {
 
 
-//    var navController =
-//        Navigation.findNavController(views)
     //we are navigating from home which is inside tab fragment. so we use Navigation. and pass views
     var listOfSongs = SongModel
    // var navigationNumber = navNum
@@ -64,18 +53,14 @@ class SongListAdapter(
         var optionMenu = itemView.findViewById<ImageButton>(R.id.option_button)!!
 
 
-
-        //   val alertRecyclerView =itemView.findViewById<RecyclerView>(R.id.alertRecyclerViewForPlaylist)
-
         private var mCustomItemClickListener: CustomItemClickListener? = null
 
         init {
-
             if (navigationNumber==2){
                 optionMenu.visibility=View.GONE
             }
             itemView.setOnClickListener(this)
-            //for making the view to just under or near them clicked item
+            //for making the view to just under or near the clicked item
             optionMenu.setOnClickListener(this)
             songDao = SongDatabase.getDatabase(context).songDao()
         }
@@ -94,15 +79,10 @@ class SongListAdapter(
         }
     }
 
-//    private fun deleteSong(view: View?,adapterPosition: Int){
-//        listOfSongs[adapterPosition.rem(adapterPosition)]
-//    }
 
     private fun removeSongFromPlaylist(adapterPosition: Int) {
-        Log.i("Checking", " remove working")
         CoroutineScope(Dispatchers.IO).launch {
             songDao.removeSong(listOfSongs[adapterPosition])
-//            musicService!!.insidePlaylistList= emptyList()
             listOfSongs.removeAt(adapterPosition)
             withContext(Dispatchers.Main) {
                 this@SongListAdapter.notifyItemRemoved(adapterPosition)
@@ -136,7 +116,7 @@ class SongListAdapter(
                 }
                 R.id.delete -> {
                     val builder = MaterialAlertDialogBuilder(context)
-                    builder.setTitle("Remove Song")
+                    builder.setTitle("Remove Song?")
                         .setMessage("Do you want to remove this song from playlist?")
                         .setPositiveButton("Yes") { _, _ ->
                             removeSongFromPlaylist(adapterPosition)
@@ -174,17 +154,14 @@ class SongListAdapter(
         musicService!!.readPlaylistNamesFromDatabase(context)
 
         alertView.alertRecyclerViewForPlaylist.apply {
-            alertAdapter = AlertBoxAdapter(playlistList, alertView.write_playlist_name, listOfSongs)
+            alertAdapter = AlertBoxAdapter( alertView.write_playlist_name, listOfSongs)
             adapter = alertAdapter
-            Log.i("Name", "check playList")
             layoutManager = GridLayoutManager(context, 2)
         }
 
         //add button
         alertView.add_button.setOnClickListener {
             val name = alertView.write_playlist_name.text.toString()
-            Log.i("fav", name)
-
             var isChecked: Boolean
             GlobalScope.launch(Dispatchers.IO) {
                 isChecked =
@@ -200,7 +177,6 @@ class SongListAdapter(
                     } else {
                         listOfSongs[adapterPosition].playListName = name
                         playlistList.add(name)
-                        Log.i("fav", name)
                         val timeStampId = System.currentTimeMillis()
                         listOfSongs[adapterPosition].timeStamp =
                             timeStampId.toString() + listOfSongs[adapterPosition].songId
@@ -213,7 +189,6 @@ class SongListAdapter(
                             "Song added to playlist $name",
                             Toast.LENGTH_SHORT
                         ).show()
-                        Log.i("Playlist name", listOfSongs[adapterPosition].playListName)
                         dialog.dismiss()
                     }
                 }
@@ -227,26 +202,20 @@ class SongListAdapter(
     }
 
     private fun addToPlaylist(adapterPosition: Int) {
-        Log.i("Playlist added", "working")
         System.currentTimeMillis()
         CoroutineScope(Dispatchers.IO).launch {
-//            if(playlistList.contains("favorite")){
-//                playlistList.remove("favorite")
-//            }
             songDao.addSong(listOfSongs[adapterPosition])
         }
     }
 
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SongListViewHolder {
-        //connecting the item_structure xml here
-        Log.i("ListAdapter", "1")
         val view = LayoutInflater.from(parent.context).inflate(R.layout.music_row, parent, false)
 
         return SongListViewHolder(view)
     }
 
-    //bind data to the items
-    //Take the data  and set it to the corresponding view
+
     override fun onBindViewHolder(holder: SongListViewHolder, selectedSongPosition: Int) {
 
             holder.songName.text = listOfSongs[selectedSongPosition].songName
@@ -260,7 +229,6 @@ class SongListAdapter(
 
                 override fun onCustomItemClick(view: View, selectedSongPosition: Int) {
 
-                    Log.i("testPlayerCount",selectedSongPosition.toString())
                     onClicked(listOfSongs[selectedSongPosition],selectedSongPosition)
 
                     //navigating from home fragment which is inside tab fragment. So home fragment is not shown here
@@ -285,7 +253,6 @@ class SongListAdapter(
     }
 
     override fun getItemCount(): Int {
-        Log.i("SizeOfList", listOfSongs.toString() + "getItemCount")
         return listOfSongs.size
     }
 }

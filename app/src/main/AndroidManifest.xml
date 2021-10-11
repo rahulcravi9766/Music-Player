@@ -17,8 +17,7 @@
         android:theme="@style/Theme.TabButtons">
         <activity
             android:name=".activity.MainActivity"
-            android:exported="true"
-            android:configChanges="orientation|screenSize"/>
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".splashScreen.SplashScreen"
             android:theme="@style/Theme.AppCompat.NoActionBar"

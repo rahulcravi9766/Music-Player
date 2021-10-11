@@ -58,14 +58,38 @@
         <entry key="..\:/Users/HP/AndroidStudioProjects/4tabButtons/app/src/main/res/layout/fragment_tab.xml" value="0.18" />
         <entry key="..\:/Users/HP/AndroidStudioProjects/4tabButtons/app/src/main/res/layout/music_favorite.xml" value="0.33" />
         <entry key="..\:/Users/HP/AndroidStudioProjects/4tabButtons/app/src/main/res/layout/music_row.xml" value="0.171875" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/OriginalTab - Copy (2) latest/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.14722222222222223" />
         <entry key="..\:/Users/HP/AndroidStudioProjects/OriginalTab - Copy (2) latest/app/src/main/res/drawable/alert_box_style.xml" value="0.1921875" />
         <entry key="..\:/Users/HP/AndroidStudioProjects/OriginalTab - Copy (2) latest/app/src/main/res/drawable/border.xml" value="0.1921875" />
         <entry key="..\:/Users/HP/AndroidStudioProjects/OriginalTab - Copy (2) latest/app/src/main/res/drawable/button_background.xml" value="0.1921875" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/OriginalTab - Copy (2) latest/app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.14722222222222223" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/OriginalTab - Copy (2) latest/app/src/main/res/drawable/ic_baseline_arrow_back_24.xml" value="0.14722222222222223" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/OriginalTab - Copy (2) latest/app/src/main/res/drawable/ic_baseline_arrow_forward_24.xml" value="0.14722222222222223" />
         <entry key="..\:/Users/HP/AndroidStudioProjects/OriginalTab - Copy (2) latest/app/src/main/res/drawable/ic_baseline_fast_forward_24.xml" value="0.1921875" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/OriginalTab - Copy (2) latest/app/src/main/res/drawable/ic_baseline_fast_rewind_24.xml" value="0.14722222222222223" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/OriginalTab - Copy (2) latest/app/src/main/res/drawable/ic_baseline_favorite_border_24.xml" value="0.14722222222222223" />
         <entry key="..\:/Users/HP/AndroidStudioProjects/OriginalTab - Copy (2) latest/app/src/main/res/drawable/ic_baseline_more_vert_24.xml" value="0.1712962962962963" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/OriginalTab - Copy (2) latest/app/src/main/res/drawable/ic_baseline_music_note_24.xml" value="0.14722222222222223" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/OriginalTab - Copy (2) latest/app/src/main/res/drawable/ic_baseline_music_video_24.xml" value="0.14722222222222223" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/OriginalTab - Copy (2) latest/app/src/main/res/drawable/ic_baseline_pause_circle_outline_24.xml" value="0.14722222222222223" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/OriginalTab - Copy (2) latest/app/src/main/res/drawable/ic_baseline_play_arrow_24.xml" value="0.14722222222222223" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/OriginalTab - Copy (2) latest/app/src/main/res/drawable/ic_baseline_play_circle_outline_24.xml" value="0.14722222222222223" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/OriginalTab - Copy (2) latest/app/src/main/res/drawable/ic_baseline_playlist_add_24.xml" value="0.14722222222222223" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/OriginalTab - Copy (2) latest/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.14722222222222223" />
         <entry key="..\:/Users/HP/AndroidStudioProjects/OriginalTab - Copy (2) latest/app/src/main/res/drawable/ic_baseline_settings_24.xml" value="0.1921875" />
         <entry key="..\:/Users/HP/AndroidStudioProjects/OriginalTab - Copy (2) latest/app/src/main/res/drawable/ic_baseline_shuffle_24.xml" value="0.1921875" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/OriginalTab - Copy (2) latest/app/src/main/res/drawable/ic_baseline_skip_next_24.xml" value="0.14722222222222223" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/OriginalTab - Copy (2) latest/app/src/main/res/drawable/ic_baseline_skip_previous_24.xml" value="0.14722222222222223" />
         <entry key="..\:/Users/HP/AndroidStudioProjects/OriginalTab - Copy (2) latest/app/src/main/res/drawable/ic_baseline_timer_24.xml" value="0.17239583333333333" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/OriginalTab - Copy (2) latest/app/src/main/res/drawable/ic_close.xml" value="0.14722222222222223" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/OriginalTab - Copy (2) latest/app/src/main/res/drawable/ic_launcher_background.xml" value="0.14722222222222223" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/OriginalTab - Copy (2) latest/app/src/main/res/drawable/ic_menu.xml" value="0.14722222222222223" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/OriginalTab - Copy (2) latest/app/src/main/res/drawable/ic_music_note_bottom.xml" value="0.14722222222222223" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/OriginalTab - Copy (2) latest/app/src/main/res/drawable/ic_next_notification.xml" value="0.14722222222222223" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/OriginalTab - Copy (2) latest/app/src/main/res/drawable/ic_pause_bottom.xml" value="0.14722222222222223" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/OriginalTab - Copy (2) latest/app/src/main/res/drawable/ic_pause_notification.xml" value="0.14722222222222223" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/OriginalTab - Copy (2) latest/app/src/main/res/drawable/ic_play_bottom.xml" value="0.14722222222222223" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/OriginalTab - Copy (2) latest/app/src/main/res/drawable/ic_previous_notification.xml" value="0.14722222222222223" />
         <entry key="..\:/Users/HP/AndroidStudioProjects/OriginalTab - Copy (2) latest/app/src/main/res/drawable/ic_search.xml" value="0.1921875" />
         <entry key="..\:/Users/HP/AndroidStudioProjects/OriginalTab - Copy (2) latest/app/src/main/res/drawable/ic_shuffle_off.xml" value="0.1921875" />
         <entry key="..\:/Users/HP/AndroidStudioProjects/OriginalTab - Copy (2) latest/app/src/main/res/drawable/ic_timer.xml" value="0.1921875" />
@@ -73,19 +97,19 @@
         <entry key="..\:/Users/HP/AndroidStudioProjects/OriginalTab - Copy (2) latest/app/src/main/res/drawable/ic_timeroff.xml" value="0.11388888888888889" />
         <entry key="..\:/Users/HP/AndroidStudioProjects/OriginalTab - Copy (2) latest/app/src/main/res/drawable/my_scroll.xml" value="0.1" />
         <entry key="..\:/Users/HP/AndroidStudioProjects/OriginalTab - Copy (2) latest/app/src/main/res/drawable/playlist_style.xml" value="0.1921875" />
-        <entry key="..\:/Users/HP/AndroidStudioProjects/OriginalTab - Copy (2) latest/app/src/main/res/layout-land/fragment_music_player.xml" value="0.25" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/OriginalTab - Copy (2) latest/app/src/main/res/layout-land/fragment_music_player.xml" value="0.21458333333333332" />
         <entry key="..\:/Users/HP/AndroidStudioProjects/OriginalTab - Copy (2) latest/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/HP/AndroidStudioProjects/OriginalTab - Copy (2) latest/app/src/main/res/layout/activity_splash_screen.xml" value="0.22" />
-        <entry key="..\:/Users/HP/AndroidStudioProjects/OriginalTab - Copy (2) latest/app/src/main/res/layout/alert_box.xml" value="0.1" />
-        <entry key="..\:/Users/HP/AndroidStudioProjects/OriginalTab - Copy (2) latest/app/src/main/res/layout/alert_box_rv.xml" value="0.9" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/OriginalTab - Copy (2) latest/app/src/main/res/layout/alert_box.xml" value="0.2" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/OriginalTab - Copy (2) latest/app/src/main/res/layout/alert_box_rv.xml" value="0.6204819277108434" />
         <entry key="..\:/Users/HP/AndroidStudioProjects/OriginalTab - Copy (2) latest/app/src/main/res/layout/bootom_sheet.xml" value="0.1" />
-        <entry key="..\:/Users/HP/AndroidStudioProjects/OriginalTab - Copy (2) latest/app/src/main/res/layout/bottom_sheet.xml" value="0.33" />
-        <entry key="..\:/Users/HP/AndroidStudioProjects/OriginalTab - Copy (2) latest/app/src/main/res/layout/fragment_fav.xml" value="0.13677536231884058" />
-        <entry key="..\:/Users/HP/AndroidStudioProjects/OriginalTab - Copy (2) latest/app/src/main/res/layout/fragment_home.xml" value="0.22" />
-        <entry key="..\:/Users/HP/AndroidStudioProjects/OriginalTab - Copy (2) latest/app/src/main/res/layout/fragment_music_player.xml" value="0.3238566131025958" />
-        <entry key="..\:/Users/HP/AndroidStudioProjects/OriginalTab - Copy (2) latest/app/src/main/res/layout/fragment_playlist.xml" value="0.33" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/OriginalTab - Copy (2) latest/app/src/main/res/layout/bottom_sheet.xml" value="0.29178470254957506" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/OriginalTab - Copy (2) latest/app/src/main/res/layout/fragment_fav.xml" value="0.2635416666666667" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/OriginalTab - Copy (2) latest/app/src/main/res/layout/fragment_home.xml" value="0.16" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/OriginalTab - Copy (2) latest/app/src/main/res/layout/fragment_music_player.xml" value="0.29512893982808025" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/OriginalTab - Copy (2) latest/app/src/main/res/layout/fragment_playlist.xml" value="0.2959770114942529" />
         <entry key="..\:/Users/HP/AndroidStudioProjects/OriginalTab - Copy (2) latest/app/src/main/res/layout/fragment_songs_in_playlist.xml" value="0.18" />
-        <entry key="..\:/Users/HP/AndroidStudioProjects/OriginalTab - Copy (2) latest/app/src/main/res/layout/fragment_tab.xml" value="0.10740740740740741" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/OriginalTab - Copy (2) latest/app/src/main/res/layout/fragment_tab.xml" value="0.25" />
         <entry key="..\:/Users/HP/AndroidStudioProjects/OriginalTab - Copy (2) latest/app/src/main/res/layout/music_row.xml" value="0.29525483304042177" />
         <entry key="..\:/Users/HP/AndroidStudioProjects/OriginalTab - Copy (2) latest/app/src/main/res/layout/playlist_recycler_view.xml" value="0.22" />
         <entry key="..\:/Users/HP/AndroidStudioProjects/OriginalTab - Copy (2) latest/app/src/main/res/layout/playlist_style.xml" value="0.1" />

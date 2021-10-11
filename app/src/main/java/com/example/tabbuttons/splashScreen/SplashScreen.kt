@@ -9,7 +9,7 @@ import android.os.Looper
 import com.example.tabbuttons.activity.MainActivity
 import com.example.tabbuttons.R
 
-@SuppressLint("CustomSplashScreen")    //edited
+@SuppressLint("CustomSplashScreen")
 class SplashScreen : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

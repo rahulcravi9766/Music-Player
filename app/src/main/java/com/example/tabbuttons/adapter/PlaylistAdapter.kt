@@ -1,37 +1,26 @@
 package com.example.tabbuttons.adapter
 
 import android.app.AlertDialog
-import android.content.Context
 import android.graphics.Color
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.cardview.widget.CardView
-import androidx.constraintlayout.motion.widget.MotionScene
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tabbuttons.R
-import com.example.tabbuttons.dataBase.SongDao
-import com.example.tabbuttons.fragments.PlaylistFragment
 import com.example.tabbuttons.model.musicService
-import com.example.tabbuttons.model.songModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.*
 
 class PlaylistAdapter(
     var playlistList: MutableList<String>,
-    view: View,
     fragmentContext: FragmentActivity
-
 
 ) : RecyclerView.Adapter<PlaylistAdapter.PlaylistViewHolder>() {
 
-
     var context = fragmentContext
-    private lateinit var songDao: SongDao
-
 
     inner class PlaylistViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
 
@@ -76,12 +65,9 @@ class PlaylistAdapter(
 
     override fun onBindViewHolder(holder: PlaylistViewHolder, position: Int) {
         holder.apply {
-//edited on oct6 holder.itemView
                playlistName.text = playlistList[position]
-            //    Log.i("Position", playlistList[position].toString())
-        //    Toast.makeText(context,"hello",Toast.LENGTH_SHORT).show()
 
-            holder.playListCard.setOnClickListener {
+           playListCard.setOnClickListener {
                 GlobalScope.launch (Dispatchers.IO){
                     musicService!!.readSongsInPlaylist(playlistList[position])
                     withContext(Dispatchers.Main){
@@ -89,7 +75,7 @@ class PlaylistAdapter(
                     }
                 }
             }
-            holder.playListCard.setOnLongClickListener {
+           playListCard.setOnLongClickListener {
                deleteBox(position)
             }
         }

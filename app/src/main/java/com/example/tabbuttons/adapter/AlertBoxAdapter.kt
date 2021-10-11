@@ -1,6 +1,5 @@
 package com.example.tabbuttons.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,16 +7,16 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tabbuttons.R
+import com.example.tabbuttons.model.SongModel
 import com.example.tabbuttons.model.playlistList
-import com.example.tabbuttons.model.songModel
 
-class AlertBoxAdapter(playlistList: MutableList<String>, writePlaylistName: EditText, SongModel: List<songModel>) : RecyclerView.Adapter<AlertBoxAdapter.AlertBoxViewHolder>() {
+class AlertBoxAdapter( writePlaylistName: EditText, SongModel: List<SongModel>) : RecyclerView.Adapter<AlertBoxAdapter.AlertBoxViewHolder>() {
 
     var editTextName = writePlaylistName
     var listOfSongs = SongModel
 
     inner class AlertBoxViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val songNameInAlert = itemView.findViewById<TextView>(R.id.alertBox_playList_name)
+        val songNameInAlert: TextView = itemView.findViewById(R.id.alertBox_playList_name)
         var edit = editTextName
 
     }
@@ -37,8 +36,6 @@ class AlertBoxAdapter(playlistList: MutableList<String>, writePlaylistName: Edit
 
             holder.edit.setText(playlistList[position])
         }
-
-        Log.i("Name", playlistList[position])
     }
 
     override fun getItemCount(): Int {

@@ -53,6 +53,8 @@ class TabFragment : Fragment(), ServiceConnection {
             DataBindingUtil.inflate(inflater, R.layout.fragment_tab, container, false)
 
 
+        if (musicService != null) checkingSleepTimerOnOrOff()
+
         val viewPagerAdapter =
             activity?.let {
                 ViewPagerAdapter(
@@ -102,11 +104,15 @@ class TabFragment : Fragment(), ServiceConnection {
                         min30 = false
                         min60 = false
 
-                        Toast.makeText(requireContext(), "Sleep timer switched off", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            requireContext(),
+                            "Sleep timer switched off",
+                            Toast.LENGTH_SHORT
+                        ).show()
                         tabBinding.sleepTimerButton.setColorFilter(
                             ContextCompat.getColor(
                                 requireContext(),
-                                R.color.red
+                                R.color.black
                             )
                         )
                     }
@@ -120,11 +126,6 @@ class TabFragment : Fragment(), ServiceConnection {
                 customDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.RED)
             }
         }
-
-//        tabBinding.playPauseButtonBottom.setOnClickListener {
-//            if (musicService!!.mediaPlayer!!.isPlaying) musicService!!.pauseMusic()
-//            else musicService!!.playMusic()
-//        }
 
 
         if (musicService != null && musicService!!.mediaPlayer != null) {
@@ -147,17 +148,24 @@ class TabFragment : Fragment(), ServiceConnection {
         dialog.setContentView(R.layout.bottom_sheet)
         dialog.show()
         dialog.findViewById<LinearLayout>(R.id.lay_one)?.setOnClickListener {
-
-            Toast.makeText(requireContext(), "Sleep timer set for 15 min", Toast.LENGTH_SHORT).show()
+            musicService!!.sleepButton = true
+            Toast.makeText(requireContext(), "Sleep timer set for 15 min", Toast.LENGTH_SHORT)
+                .show()
             min15 = true
             Thread {
 
-                Thread.sleep(10000)
-                if (min15) exitProcessForSleeperTime()
+                Thread.sleep(900000)
+                musicService!!.sleepButton = false
+                if (musicService!!.mediaPlayer != null && musicService!!.mainActivity.isDestroyed) {
+                    min15 = false
+                    exitProcessForSleeperTime()
+                } else if (this.isVisible) {
+                    min15 = false
+                    changeSleepTimerColor()
+                }
             }.start()
             dialog.dismiss()
 
-            Log.i("CChecking", "working")
             tabBinding.sleepTimerButton.setColorFilter(
                 ContextCompat.getColor(
                     requireContext(),
@@ -167,18 +175,29 @@ class TabFragment : Fragment(), ServiceConnection {
         }
 
         dialog.findViewById<LinearLayout>(R.id.lay_two)?.setOnClickListener {
+            musicService!!.sleepButton = true
             Toast.makeText(requireContext(), "Sleep timer set for 30 min", Toast.LENGTH_SHORT)
                 .show()
             min30 = true
             Thread {
 
-                Thread.sleep(30000)
-                if (min30) exitProcessForSleeperTime()
+                Thread.sleep(1800000)
+                musicService!!.sleepButton = false
+                if (musicService!!.mediaPlayer != null && musicService!!.mainActivity.isDestroyed) {
+                    exitProcessForSleeperTime()
+                } else if (this.isVisible) {
+
+                    tabBinding.sleepTimerButton.setColorFilter(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.black
+                        )
+                    )
+
+                }
             }.start()
             dialog.dismiss()
 
-
-            Log.i("CChecking", "working")
             tabBinding.sleepTimerButton.setColorFilter(
                 ContextCompat.getColor(
                     requireContext(),
@@ -188,17 +207,28 @@ class TabFragment : Fragment(), ServiceConnection {
         }
 
         dialog.findViewById<LinearLayout>(R.id.lay_three)?.setOnClickListener {
+            musicService!!.sleepButton = true
             Toast.makeText(requireContext(), "Sleep timer set for 60 min", Toast.LENGTH_SHORT)
                 .show()
             min60 = true
             Thread {
 
-                Thread.sleep(10000)
-                if (min60) exitProcessForSleeperTime()
+                Thread.sleep(3600000)
+                musicService!!.sleepButton = false
+                if (musicService!!.mediaPlayer != null && musicService!!.mainActivity.isDestroyed) {
+                    exitProcessForSleeperTime()
+                } else if (this.isVisible) {
+
+                    tabBinding.sleepTimerButton.setColorFilter(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.black
+                        )
+                    )
+                }
             }.start()
             dialog.dismiss()
 
-            Log.i("CChecking", "working")
             tabBinding.sleepTimerButton.setColorFilter(
                 ContextCompat.getColor(
                     requireContext(),
@@ -208,21 +238,48 @@ class TabFragment : Fragment(), ServiceConnection {
         }
     }
 
+    private fun checkingSleepTimerOnOrOff() {
+        if (musicService!!.sleepButton) {
+            tabBinding.sleepTimerButton.setColorFilter(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.green
+                )
+            )
+        } else {
+            tabBinding.sleepTimerButton.setColorFilter(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.black
+                )
+            )
+        }
+    }
+
 
     private fun exitProcessForSleeperTime() {
 
-        if (musicService!!.mediaPlayer != null) {
-            musicService!!.stopForeground(true)
-            musicService!!.mediaPlayer!!.release()
-            musicService = null
-        }
-        exitProcess(1)
+        musicService!!.mediaPlayer!!.pause()
+        musicService!!.mediaPlayer!!.stop()
+        musicService!!.stopForeground(true)
     }
 
+    private fun changeSleepTimerColor() {
+
+        musicService!!.mainActivity.runOnUiThread {
+            tabBinding.sleepTimerButton.setColorFilter(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.black
+                )
+            )
+        }
+    }
 
     override fun onServiceConnected(p0: ComponentName?, service: IBinder?) {
         val binder = service as PlayMusicService.MyBinder
         musicService = binder.currentService()
+        checkingSleepTimerOnOrOff()
         musicService!!.tabCalling(this)
         musicService!!.readFavSongs("favorite")
 

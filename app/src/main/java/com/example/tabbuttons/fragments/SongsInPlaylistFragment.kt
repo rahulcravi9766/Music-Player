@@ -17,17 +17,15 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tabbuttons.R
-import com.example.tabbuttons.adapter.PlaylistAdapter
 import com.example.tabbuttons.adapter.SongListAdapter
 import com.example.tabbuttons.dataBase.SongDao
 import com.example.tabbuttons.dataBase.SongDatabase
 import com.example.tabbuttons.databinding.FragmentSongsInPlaylistBinding
+import com.example.tabbuttons.model.SongModel
 import com.example.tabbuttons.model.musicService
-import com.example.tabbuttons.model.songModel
 import com.example.tabbuttons.service.PlayMusicService
 import com.trendyol.bubblescrollbarlib.BubbleTextProvider
 import kotlinx.android.synthetic.main.fragment_songs_in_playlist.view.*
@@ -35,7 +33,6 @@ import kotlinx.coroutines.*
 import java.lang.StringBuilder
 
 class SongsInPlaylistFragment : Fragment(), ServiceConnection {
-
 
     lateinit var songsInPlaylistBinding: FragmentSongsInPlaylistBinding
     private lateinit var songDao: SongDao
@@ -64,16 +61,14 @@ class SongsInPlaylistFragment : Fragment(), ServiceConnection {
 //        }
         setHasOptionsMenu(true)
 
-      //  mainview=songsInPlaylistBinding.root
         songDao = SongDatabase.getDatabase(requireActivity().application).songDao()
 
 
         return songsInPlaylistBinding.root
     }
 
-    private val onClicked : (songModel, Int)->Unit={ songModel: songModel, i: Int ->
+    private val onClicked : (SongModel, Int)->Unit={ songModel: SongModel, i: Int ->
 
-        Log.i("onclicked",i.toString())
         val actions = SongsInPlaylistFragmentDirections.actionSongsInPlaylistFragmentToMusicPlayerFragment(
 
             i,songModel.songId
@@ -84,24 +79,17 @@ class SongsInPlaylistFragment : Fragment(), ServiceConnection {
     }
 
 
-
-//    private fun readPlaylistSongs() {
-//        musicService!!.readSongsInPlaylist()
-//        songsInPlaylistRecyclerView()
-//    }
-
     private fun songsInPlaylistRecyclerView() {
 
         songInPlaylistRv.apply {
             songsInPlaylistAdapter =
                 activity?.let {
                     SongListAdapter(
-                        musicService!!.songsInsidePlaylist as MutableList<songModel>,onClicked,songsInPlaylistBinding.root, 3,
+                        musicService!!.songsInsidePlaylist as MutableList<SongModel>,onClicked,songsInPlaylistBinding.root, 3,
                         it
                     )
                 }!!
             adapter = songsInPlaylistAdapter
-            Log.i("recyclerPlay", "check playList")
 
             layoutManager = LinearLayoutManager(activity)
 

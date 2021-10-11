@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit
 
 @Parcelize
 @Entity(tableName = "database")
-data class songModel(
+data class SongModel(
     @PrimaryKey() var timeStamp : String,
     val songId: Int,
     var playListName : String,
@@ -20,7 +20,7 @@ data class songModel(
     val songPhoto: String
 ) : Parcelable
 
-var musicService: PlayMusicService? = null
+ var musicService: PlayMusicService? = null
  var playlistList= mutableListOf<String>()
 
 fun toMinutes(duration: Long): String {

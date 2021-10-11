@@ -9,8 +9,10 @@ import com.example.tabbuttons.fragments.PlaylistFragment
 import com.example.tabbuttons.fragments.HomeFragment
 
 //connecting the fragments with the viewAdapter
-class ViewPagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle,
-                       private val view: View
+class ViewPagerAdapter(
+    fragmentManager: FragmentManager,
+    lifecycle: Lifecycle,
+    private val view: View
 ) :
     FragmentStateAdapter(fragmentManager, lifecycle) {
 

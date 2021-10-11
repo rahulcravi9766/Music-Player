@@ -12,8 +12,6 @@ class Application : Application() {
         const val NEXT = "next"
         const val PREVIOUS = "previous"
         const val EXIT = "exit"
-        const val SEEKBAR = "seekbar"
-
     }
 
     override fun onCreate() {
