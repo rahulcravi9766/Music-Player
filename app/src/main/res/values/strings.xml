@@ -24,5 +24,7 @@
     <string name="duration">Duration</string>
     <string name="playlistname">playlistName</string>
     <string name="playlists">Playlists</string>
+    <string name="ascending_order">Ascending order</string>
+    <string name="descending_order">Descending order</string>
 
 </resources>

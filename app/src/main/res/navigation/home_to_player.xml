@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/musicPlayerFragment"
-        android:name="com.example.tabbuttons.fragments.MusicPlayerFragment"
+        android:name="com.rahul_music_pod.tabbuttons.fragments.MusicPlayerFragment"
         android:label=""
         tools:layout="@layout/fragment_music_player" >
         <action
@@ -23,7 +23,7 @@
     </fragment>
     <fragment
         android:id="@+id/tabFragment"
-        android:name="com.example.tabbuttons.fragments.TabFragment"
+        android:name="com.rahul_music_pod.tabbuttons.fragments.TabFragment"
         android:label="Musicpod"
 
         tools:layout="@layout/fragment_tab" >
@@ -39,7 +39,7 @@
     </fragment>
     <fragment
         android:id="@+id/favFragment"
-        android:name="com.example.tabbuttons.fragments.FavFragment"
+        android:name="com.rahul_music_pod.tabbuttons.fragments.FavFragment"
         android:label="Favorites"
         tools:layout="@layout/fragment_fav" >
         <action
@@ -48,7 +48,7 @@
     </fragment>
     <fragment
         android:id="@+id/songsInPlaylistFragment"
-        android:name="com.example.tabbuttons.fragments.SongsInPlaylistFragment"
+        android:name="com.rahul_music_pod.tabbuttons.fragments.SongsInPlaylistFragment"
         android:label="Playlist" >
         <action
             android:id="@+id/action_songsInPlaylistFragment_to_musicPlayerFragment"

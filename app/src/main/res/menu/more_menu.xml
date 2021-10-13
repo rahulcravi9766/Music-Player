@@ -4,18 +4,11 @@
 
     <item
         android:id="@+id/sort_ascending"
-        android:title="Ascending order"/>
+        android:title="@string/ascending_order"/>
 
     <item
         android:id="@+id/sort_descending"
-        android:title="Descending order"/>
+        android:title="@string/descending_order"/>
 
-<!--    <item-->
-<!--        android:id="@+id/searchView"-->
-<!--        android:title="search_view"-->
-<!--        android:icon="@drawable/ic_search"-->
-<!--        app:showAsAction="ifRoom|collapseActionView"-->
-<!--        app:actionViewClass="androidx.appcompat.widget.SearchView"-->
-<!--        />-->
 
 </menu>
